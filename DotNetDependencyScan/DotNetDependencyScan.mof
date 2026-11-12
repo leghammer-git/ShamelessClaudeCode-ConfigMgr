@@ -1,0 +1,66 @@
+// DotNetDependencyScan - hardware inventory classes
+// Import: Administration > Client Settings > Default Client Settings > Properties >
+//         Hardware Inventory > Set Classes... > Import...
+// Creates the SQL views v_GS_DOTNET_APP_DEPENDENCY0, v_GS_DOTNET_RUNTIME0, v_GS_DOTNET_SCAN_STATUS0.
+
+[ SMS_Report (TRUE),
+  SMS_Group_Name ("DOTNET_APP_DEPENDENCY"),
+  SMS_Class_ID ("CUSTOM|DOTNET_APP_DEPENDENCY|1.0"),
+  Namespace ("root\\\\cimv2") ]
+class CM_DotNetAppDependency : SMS_Class_Template
+{
+    [ SMS_Report (TRUE), key ] string   ConfigPath;
+    [ SMS_Report (TRUE), key ] string   FrameworkName;
+    [ SMS_Report (TRUE) ]      string   AppName;
+    [ SMS_Report (TRUE) ]      string   AppFolder;
+    [ SMS_Report (TRUE) ]      string   RequestedVersion;
+    [ SMS_Report (TRUE) ]      uint32   RequestedMajor;
+    [ SMS_Report (TRUE) ]      string   Tfm;
+    [ SMS_Report (TRUE) ]      string   RollForward;
+    [ SMS_Report (TRUE) ]      boolean  AllowsMajorRollForward;
+    [ SMS_Report (TRUE) ]      boolean  SelfContained;
+    [ SMS_Report (TRUE) ]      string   ResolvedVersion;
+    [ SMS_Report (TRUE) ]      uint32   ResolvedMajor;
+    [ SMS_Report (TRUE) ]      string   FallbackVersion;
+    [ SMS_Report (TRUE) ]      string   Verdict;
+    [ SMS_Report (TRUE) ]      string   HostFile;
+    [ SMS_Report (TRUE) ]      string   HostArchitecture;
+    [ SMS_Report (TRUE) ]      string   Company;
+    [ SMS_Report (TRUE) ]      string   Product;
+    [ SMS_Report (TRUE) ]      string   ProductVersion;
+    [ SMS_Report (TRUE) ]      boolean  InUserProfile;
+    [ SMS_Report (TRUE) ]      datetime ScanTime;
+};
+
+[ SMS_Report (TRUE),
+  SMS_Group_Name ("DOTNET_RUNTIME"),
+  SMS_Class_ID ("CUSTOM|DOTNET_RUNTIME|1.0"),
+  Namespace ("root\\\\cimv2") ]
+class CM_DotNetRuntime : SMS_Class_Template
+{
+    [ SMS_Report (TRUE), key ] string   FrameworkName;
+    [ SMS_Report (TRUE), key ] string   Version;
+    [ SMS_Report (TRUE), key ] string   Architecture;
+    [ SMS_Report (TRUE) ]      string   Path;
+    [ SMS_Report (TRUE) ]      datetime ScanTime;
+};
+
+[ SMS_Report (TRUE),
+  SMS_Group_Name ("DOTNET_SCAN_STATUS"),
+  SMS_Class_ID ("CUSTOM|DOTNET_SCAN_STATUS|1.0"),
+  Namespace ("root\\\\cimv2") ]
+class CM_DotNetScanStatus : SMS_Class_Template
+{
+    [ SMS_Report (TRUE), key ] string   Id;
+    [ SMS_Report (TRUE) ]      datetime ScanTime;
+    [ SMS_Report (TRUE) ]      uint32   DurationSeconds;
+    [ SMS_Report (TRUE) ]      string   Result;
+    [ SMS_Report (TRUE) ]      string   Message;
+    [ SMS_Report (TRUE) ]      uint32   FilesFound;
+    [ SMS_Report (TRUE) ]      uint32   DependencyCount;
+    [ SMS_Report (TRUE) ]      uint32   ParseErrors;
+    [ SMS_Report (TRUE) ]      uint32   DirectoryErrors;
+    [ SMS_Report (TRUE) ]      string   DrivesScanned;
+    [ SMS_Report (TRUE) ]      string   EnvRollForward;
+    [ SMS_Report (TRUE) ]      string   ScannerVersion;
+};
